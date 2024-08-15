@@ -30,7 +30,7 @@ class _TripPageState extends State<TripPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: Text("รายละเอียดทริป")),
       body: FutureBuilder(
           future: loadData,
           builder: (context, snapshot) {
@@ -40,7 +40,52 @@ class _TripPageState extends State<TripPage> {
               );
             }
 
-            return SingleChildScrollView(child: Text(data.name));
+            return SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        style: const TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.w800),
+                        data.name,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(data.country),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.network(data.coverimage),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('ราคา ${data.price} บาท'),
+                          Text('โซน${data.destinationZone}'),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(data.detail),
+                    ),
+                    Center(
+                      child: FilledButton(
+                        onPressed: () {},
+                        child: const Text("จองเลย"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
           }),
     );
   }

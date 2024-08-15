@@ -84,14 +84,22 @@ class _ShowtripPageState extends State<ShowtripPage> {
                         }
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: zone
-                              .map((trip) => FilledButton(
-                                    onPressed: () {
-                                      getTrips(trip.zone);
-                                    },
-                                    child: Text(trip.zone),
-                                  ))
-                              .toList(),
+                          children: [
+                            FilledButton(
+                              onPressed: () {
+                                loadDataAsync();
+                              },
+                              child: Text("ทั้งหมด"),
+                            ),
+                            ...zone
+                                .map((trip) => FilledButton(
+                                      onPressed: () {
+                                        getTrips(trip.zone);
+                                      },
+                                      child: Text(trip.zone),
+                                    ))
+                                .toList(),
+                          ],
                         );
                       }),
                 ),
@@ -520,6 +528,9 @@ class _ShowtripPageState extends State<ShowtripPage> {
     url = value['apiEndpoint'];
     var res = await http.get(Uri.parse('$url/trips'));
     tripgetrepones = tripsGetReponesFromJson(res.body);
+    setState(() {
+      tripgetrepones = tripgetrepones;
+    });
   }
 
   Future<void> loadbarDataAsync() async {
